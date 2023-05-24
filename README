@@ -1,0 +1,17 @@
+2 api are created
+
+First:
+task1: Download docx from s3 bucket
+task2: convert Docx to html
+task3: save html into string utf-8 format into mongoose database
+
+Link of Api:
+http://localhost:8000/docxtohtml/download
+
+Second:
+task1: Convert Html to docx
+task2: Send the converted docx to s3 bucket
+
+link of api:
+http://localhost:8000/htmltodocx/upload
+
