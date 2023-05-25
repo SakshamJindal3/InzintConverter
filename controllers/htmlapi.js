@@ -70,7 +70,7 @@ const finalconversion = async (req, res) => {
     
         try {
           const resp = await convertHtmlToDocx(htmlFilePath, docxOutputPath);
-          console.log('DOCX output file path:', resp);
+          console.log('Docx Concerted and DOCX output file path:', resp);
         } catch (error) {
           console.error('HTML to DOCX conversion error:', error);
         }
@@ -78,7 +78,7 @@ const finalconversion = async (req, res) => {
         // Example usage
         const bucketName = 'docxtohtml';
         const fileKey = `aws.docx`; // The key (filename) for the file in the bucket
-        const filePath = `${homeDirectory}${process.env.DOCX}`; // The local path of the file
+        const filePath = `${__dirname}${process.env.DOCX}`; // The local path of the file
 
         await uploadFileToS3(bucketName, fileKey, filePath);
 
