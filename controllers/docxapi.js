@@ -101,9 +101,9 @@ const convert = async (req, res) => {
     const bucketName = "docxtohtml";
     const key = "Templet.docx";
 
-    const homeDirectory = os.homedir();
-    const filePath = `${homeDirectory}${process.env.DOCX}`;
-    const htmlOutputPath = `${homeDirectory}${process.env.HTML}`;
+    // const homeDirectory = os.getcwd();
+    const filePath = `${__dirname}${process.env.DOCX}`;
+    const htmlOutputPath = `${__dirname}${process.env.HTML}`;
 
     await downloadDocxFromS3(bucketName, key, filePath);
     convertDocxToHtml(filePath, htmlOutputPath)
