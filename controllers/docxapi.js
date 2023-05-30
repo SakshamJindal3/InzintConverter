@@ -12,25 +12,19 @@ connectDB();
 
 const convert = async (req, res) => {
   try {
-    // Set your AWS credentials and region
-    AWS.config.update({
-      accessKeyId: process.env.ACCESSKEY,
-      secretAccessKey: process.env.SECRETACCESSKEY,
-      region: process.env.REGION,
-    });
-
     // Create an S3 instance
     const s3 = new AWS.S3();
 
     // Function to download a DOCX file from S3
-    const downloadDocxFromS3 = async (bucketName, key, filePath) => {
-      const params = {
-        Bucket: bucketName,
-        Key: key,
-      };
-
+    const downloadDocxFromS3 = async (filePath) => {
       try {
         // Download the file from S3
+        // const{fullname,username,dob,email,password}=req.body
+        const { bucketName, key } = req.body;
+        const params = {
+          Bucket: bucketName,
+          Key: key,
+        };
         const { Body } = await s3.getObject(params).promise();
 
         // Save the file to the specified path
@@ -98,14 +92,16 @@ const convert = async (req, res) => {
     };
 
     //callings...
-    const bucketName = "docxtohtml";
-    const key = "Templet.docx";
+    // const bucketName = "docxtohtml";
+    // const key = "Templet.docx";
+
+    // await s3.getObject({params}).promise();
 
     // const homeDirectory = os.getcwd();
     const filePath = `${__dirname}${process.env.DOCX}`;
     const htmlOutputPath = `${__dirname}${process.env.HTML}`;
 
-    await downloadDocxFromS3(bucketName, key, filePath);
+    await downloadDocxFromS3(filePath);
     convertDocxToHtml(filePath, htmlOutputPath)
       .then((outputPath) => {
         console.log(`Conversion from DOCX to HTML successful!`);
