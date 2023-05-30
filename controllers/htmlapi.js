@@ -65,7 +65,7 @@ const finalconversion = async (req, res) => {
 
         //calling...
         // const homeDirectory = os.homedir();
-        const htmlFilePath = `${__dirname}${process.env.HTML}\\aws.html`;
+        const htmlFilePath = `${__dirname}${process.env.HTML}/aws.html`;
         const docxOutputPath = `${__dirname}${process.env.DOCX}`;
     
         try {
