@@ -38,7 +38,7 @@ const convert = async (req, res) => {
 
     function convertDocxToHtml(filePath, htmlFilePath) {
       return new Promise((resolve, reject) => {
-        const outputFilename = "aws.html";
+        const outputFilename = "aws_1.html";
         const outputPath = path.join(htmlFilePath, outputFilename);
         const command = `pandoc -s "${filePath}" -t html -o "${outputPath}" --metadata title="My Document Title"`;
 
@@ -66,7 +66,7 @@ const convert = async (req, res) => {
           console.error("Error reading file:", err);
           return;
         }
-
+        
         const utf8Data = iconv.decode(data, "utf-8");
 
         MongoClient.connect(process.env.MONGO_URI, { useNewUrlParser: true })
@@ -90,14 +90,6 @@ const convert = async (req, res) => {
           });
       });
     };
-
-    //callings...
-    // const bucketName = "docxtohtml";
-    // const key = "Templet.docx";
-
-    // await s3.getObject({params}).promise();
-
-    // const homeDirectory = os.getcwd();
     const filePath = `${__dirname}${process.env.DOCX}`;
     const htmlOutputPath = `${__dirname}${process.env.HTML}`;
 

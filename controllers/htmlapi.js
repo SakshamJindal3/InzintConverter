@@ -48,7 +48,7 @@ const finalconversion = async (req, res) => {
       });
     }
 
-    const htmlFilePath = `${__dirname}${process.env.HTML}/aws.html`;
+    const htmlFilePath = `${__dirname}${process.env.HTML}/aws_1.html`;
     const docxOutputPath = `${__dirname}${process.env.DOCX}`;
 
     try {
@@ -57,11 +57,7 @@ const finalconversion = async (req, res) => {
     } catch (error) {
       console.error("HTML to DOCX conversion error:", error);
     }
-
-    // Example usage
-    // const bucketName = "docxtohtml";
-    // const fileKey = `aws.docx`;
-    // await s3.getObject({params}).promise();
+    
     const filePath = `${__dirname}${process.env.DOCX}`;
     await uploadFileToS3(filePath);
 
