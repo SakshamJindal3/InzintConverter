@@ -48,7 +48,7 @@ const finalconversion = async (req, res) => {
       });
     }
 
-    const htmlFilePath = `${__dirname}${process.env.HTML}/aws.html`;
+    const htmlFilePath = `${__dirname}${process.env.HTML}`;
     const docxOutputPath = `${__dirname}${process.env.DOCX}`;
 
     try {
@@ -59,14 +59,27 @@ const finalconversion = async (req, res) => {
     }
 
     // Example usage
-    // const bucketName = "docxtohtml";
-    // const fileKey = `aws.docx`;
-    // await s3.getObject({params}).promise();
+
     const filePath = `${__dirname}${process.env.DOCX}`;
     await uploadFileToS3(filePath);
 
+    fs.unlink(htmlFilePath, (err) => {
+      if (err) {
+        console.error("Error deleting file:", err);
+        return;
+      }
+      console.log("File deleted successfully.");
+    });
+    fs.unlink(docxOutputPath, (err) => {
+      if (err) {
+        console.error("Error deleting file:", err);
+        return;
+      }
+      console.log("File deleted successfully.");
+    });
+
     return res.json({
-      message: "Html is converted to docx and uploaded to s3 bucket...",
+      data: "Html is converted to docx and uploaded to s3 bucket...",
     });
   } catch (err) {
     res.json({

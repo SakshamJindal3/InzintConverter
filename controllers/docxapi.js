@@ -2,12 +2,10 @@ const AWS = require("aws-sdk");
 const { exec } = require("child_process");
 const path = require("path");
 const fs = require("fs");
-const os = require("os");
-const iconv = require("iconv-lite");
+const { MongoClient } = require("mongodb");
 require("dotenv").config();
 const connectDB = require("../config/db");
-const { MongoClient } = require("mongodb");
-
+// const { JSDOM } = require('jsdom');
 connectDB();
 
 const convert = async (req, res) => {
@@ -18,8 +16,6 @@ const convert = async (req, res) => {
     // Function to download a DOCX file from S3
     const downloadDocxFromS3 = async (filePath) => {
       try {
-        // Download the file from S3
-        // const{fullname,username,dob,email,password}=req.body
         const { bucketName, key } = req.body;
         const params = {
           Bucket: bucketName,
@@ -27,20 +23,19 @@ const convert = async (req, res) => {
         };
         const { Body } = await s3.getObject(params).promise();
 
-        // Save the file to the specified path
         fs.writeFileSync(filePath, Body);
 
-        console.log(`File downloaded successfully,`, filePath);
+        console.log(`File downloaded successfully: ${filePath}`);
       } catch (error) {
         console.error("Error downloading file:", error);
       }
     };
 
-    function convertDocxToHtml(filePath, htmlFilePath) {
+    const convertDocxToHtml = (filePath, htmlFilePath) => {
       return new Promise((resolve, reject) => {
-        const outputFilename = "aws.html";
-        const outputPath = path.join(htmlFilePath, outputFilename);
-        const command = `pandoc -s "${filePath}" -t html -o "${outputPath}" --metadata title="My Document Title"`;
+        // const outputFilename = "aws.html";
+        // const outputPath = path.join(htmlFilePath, outputFilename);
+        const command = `pandoc -s "${filePath}" -t html -o "${htmlFilePath}" --metadata title="My Document Title"`;
 
         exec(command, (error, stdout, stderr) => {
           if (error) {
@@ -51,70 +46,57 @@ const convert = async (req, res) => {
             reject(new Error(stderr));
             return;
           }
-          resolve(outputPath);
+          resolve(htmlFilePath);
         });
       });
-    }
+    };
 
     const dbName = "mastertable";
     const collectionName = "htmlfiles";
 
-    //save to html
-    const saveHTMLToMongoDB = () => {
-      fs.readFile(filePath, (err, data) => {
-        if (err) {
-          console.error("Error reading file:", err);
-          return;
-        }
+    const saveHTMLToMongoDB = async () => {
+      try {
+        const htmlOutputPath = `${__dirname}${process.env.HTML}`;
 
-        const utf8Data = iconv.decode(data, "utf-8");
+        const data = await fs.promises.readFile(htmlOutputPath);
+        // const data = fs.readFileSync(htmlOutputPath, 'utf-8');
+        const utf8Data = data.toString("utf-8");
+        // const utf8Data = JSON.parse(jsonString);
+        console.log(utf8Data);
+        // const utf8Data = JSON.parse(data.toString("utf-8"));
 
-        MongoClient.connect(process.env.MONGO_URI, { useNewUrlParser: true })
-          .then((client) => {
-            const db = client.db(dbName);
-            const collection = db.collection(collectionName);
+        const client = await MongoClient.connect(process.env.MONGO_URI, {
+          useNewUrlParser: true,
+        });
 
-            collection
-              .insertOne({ html: utf8Data })
-              .then((result) => {
-                console.log("HTML file saved to MongoDB successfully.");
-                client.close();
-              })
-              .catch((err) => {
-                console.error("Error saving to MongoDB:", err);
-                client.close();
-              });
-          })
-          .catch((err) => {
-            console.error("Error connecting to MongoDB:", err);
-          });
-      });
+        const db = client.db(dbName);
+        const collection = db.collection(collectionName);
+
+        await collection.insertOne({ html: utf8Data });
+
+        console.log("HTML file saved to MongoDB successfully.");
+
+        client.close();
+
+        return utf8Data;
+      } catch (error) {
+        console.error("Error saving to MongoDB:", error);
+      }
     };
 
-    //callings...
-    // const bucketName = "docxtohtml";
-    // const key = "Templet.docx";
-
-    // await s3.getObject({params}).promise();
-
-    // const homeDirectory = os.getcwd();
     const filePath = `${__dirname}${process.env.DOCX}`;
     const htmlOutputPath = `${__dirname}${process.env.HTML}`;
 
     await downloadDocxFromS3(filePath);
-    convertDocxToHtml(filePath, htmlOutputPath)
-      .then((outputPath) => {
-        console.log(`Conversion from DOCX to HTML successful!`);
-        console.log("HTML output file path:", outputPath);
-      })
-      .catch((error) => {
-        console.error("DOCX to HTML conversion error:", error);
-      });
+    const outputPath = await convertDocxToHtml(filePath, htmlOutputPath);
 
-    saveHTMLToMongoDB(htmlOutputPath);
+    console.log(`Conversion from DOCX to HTML successful!`);
+    console.log("HTML output file path:", outputPath);
+
+    const utf = await saveHTMLToMongoDB(htmlOutputPath);
+
     return res.json({
-      message:
-        "Docx is Downloaded from S3 bucket and Docx is converted to html...",
+      data: utf,
     });
   } catch (err) {
     res.json({
@@ -122,4 +104,5 @@ const convert = async (req, res) => {
     });
   }
 };
+
 module.exports = convert;
