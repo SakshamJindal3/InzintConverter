@@ -14,6 +14,7 @@ const convert = async (req, res) => {
   try {
     // Create an S3 instance
     const s3 = new AWS.S3();
+    let htmlContent;
 
     // Function to download a DOCX file from S3
     const downloadDocxFromS3 = async (filePath) => {
@@ -52,6 +53,13 @@ const convert = async (req, res) => {
             return;
           }
           resolve(outputPath);
+          try {
+            htmlContent = fs.readFileSync(outputPath, "utf-8");
+            console.log(htmlContent,"htmlContent ")
+            resolve(htmlContent);
+          } catch (err) {
+            reject(err);
+          }
         });
       });
     }
@@ -61,34 +69,27 @@ const convert = async (req, res) => {
 
     //save to html
     const saveHTMLToMongoDB = () => {
-      fs.readFile(filePath, (err, data) => {
-        if (err) {
-          console.error("Error reading file:", err);
-          return;
-        }
-
-        const utf8Data = iconv.decode(data, "utf-8");
-
-        MongoClient.connect(process.env.MONGO_URI, { useNewUrlParser: true })
-          .then((client) => {
-            const db = client.db(dbName);
-            const collection = db.collection(collectionName);
-
-            collection
-              .insertOne({ html: utf8Data })
-              .then((result) => {
-                console.log("HTML file saved to MongoDB successfully.");
-                client.close();
-              })
-              .catch((err) => {
-                console.error("Error saving to MongoDB:", err);
-                client.close();
-              });
-          })
-          .catch((err) => {
-            console.error("Error connecting to MongoDB:", err);
-          });
-      });
+      const data = fs.readFileSync(filePath, "utf-8");
+    
+      MongoClient.connect(process.env.MONGO_URI, { useNewUrlParser: true })
+        .then((client) => {
+          const db = client.db(dbName);
+          const collection = db.collection(collectionName);
+    
+          collection
+            .insertOne({ html: data })
+            .then((result) => {
+              console.log("HTML file saved to MongoDB successfully.");
+              client.close();
+            })
+            .catch((err) => {
+              console.error("Error saving to MongoDB:", err);
+              client.close();
+            });
+        })
+        .catch((err) => {
+          console.error("Error connecting to MongoDB:", err);
+        });
     };
 
     //callings...
@@ -115,6 +116,7 @@ const convert = async (req, res) => {
     return res.json({
       message:
         "Docx is Downloaded from S3 bucket and Docx is converted to html...",
+        html: htmlContent
     });
   } catch (err) {
     res.json({
