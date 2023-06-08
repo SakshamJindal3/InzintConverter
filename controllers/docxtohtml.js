@@ -48,7 +48,12 @@ const downloadDocxFromS3 = async (filePath, bucketName, key) => {
       const outputFilename = "aws.html";
       const outputPath = path.join(htmlFilePath, outputFilename);
       const command = `pandoc -s "${filePath}" -t html -o "${outputPath}" --metadata title="." --extract-media=${htmlFilePath}`;
-  
+      //new callings
+      processImagesInFolder(`${htmlFilePath}/media`);
+      const input1="FlatService ";//input 1
+      const input2="Final Report";//input 2
+      replaceInputValue(outputPath, input1, input2);
+      //
       try {
         const childProcess = exec(command, async (error, stdout, stderr) => {
           if (error) {
@@ -79,8 +84,58 @@ const downloadDocxFromS3 = async (filePath, bucketName, key) => {
     });
   };
   
+  function countFilesInFolder(folderPath) {
+    fs.readdir(folderPath, (err, files) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log(`Number of files in the folder: ${files.length}`);
+      return files.length;
+    });
+  }
+
+  function processImagesInFolder(folderPath) {
+    const files = fs.readdirSync(folderPath);
+
+    files.sort((a, b) => {
+      const numA = extractNumberFromFilename(a);
+      const numB = extractNumberFromFilename(b);
+      return numA - numB;
+    });
   
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const filePath = `${folderPath}/${file}`;
   
+      // Perform actions with the image file here
+      console.log(`Processing image: ${filePath}`);
+      // Example: Upload the image, modify it, or perform any other operations
+    }
+  }
+  
+  function extractNumberFromFilename(filename) {
+    const numRegex = /(\d+)/g;
+    const matches = filename.match(numRegex);
+    if (matches) {
+      return parseInt(matches[0]);
+    }
+    return 0;
+  }
+
+
+  function replaceInputValue(filePath, input1, input2) {
+  try {
+    let fileContent = fs.readFileSync(filePath, 'utf8');
+    const updatedContent = fileContent.replace(new RegExp(`\\b${input1}\\b`, 'g'), input2);
+    const tempFilePath = `${filePath}.temp`;
+    fs.writeFileSync(tempFilePath, updatedContent, 'utf8');
+    fs.renameSync(tempFilePath, filePath);
+    console.log(`Replacement complete: ${input1} replaced with ${input2}`);
+  } catch (err) {
+     console.error(err);
+    }
+  }
   
   const docxToHtml = async (req, res) => {
     try {
