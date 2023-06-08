@@ -44,40 +44,42 @@ const downloadDocxFromS3 = async (filePath, bucketName, key) => {
 
   
   const convertDocxToHtml = async (filePath, htmlFilePath, originalName) => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       const outputFilename = "aws.html";
       const outputPath = path.join(htmlFilePath, outputFilename);
-      const command = `pandoc -s "${filePath}" -t html -o "${outputPath}" --metadata title="."`;
+      const command = `pandoc -s "${filePath}" -t html -o "${outputPath}" --metadata title="." --extract-media=${htmlFilePath}`;
   
-      const childProcess = exec(command, async (error, stdout, stderr) => {
-        if (error) {
+      try {
+        const childProcess = exec(command, async (error, stdout, stderr) => {
+          if (error) {
+            reject(error);
+            return;
+          }
+          if (stderr) {
+            reject(new Error(stderr));
+            return;
+          }
+          try {
+            const htmlData = fs.readFileSync(outputPath, "utf-8");
+            resolve({
+              htmlContent: htmlData,
+            });
+          } catch (err) {
+            reject(err);
+          }
+        });
+  
+        childProcess.on("error", (error) => {
           reject(error);
-          return;
-        }
-        if (stderr) {
-          reject(new Error(stderr));
-          return;
-        }
-        try {
-          const htmlData = fs.readFileSync(outputPath, "utf-8");
-         //const jsonString = JSON.stringify(htmlContent, null, 2);
-          resolve({
-            // "content-Saved": newSchema,
-          htmlContent: htmlData,
-          });
-        } catch (err) {
-          reject(err);
-        }
-      });
-  
-      childProcess.on("error", (error) => {
+        });
+      } catch (error) {
+        console.error("Error converting DOCX to HTML:", error);
         reject(error);
-      });
-    }).catch((error) => {
-      console.error("Error converting DOCX to HTML:", error);
-      throw error;
+      }
     });
   };
+  
+  
   
   
   const docxToHtml = async (req, res) => {
