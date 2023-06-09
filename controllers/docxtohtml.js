@@ -1,6 +1,6 @@
 
 const DOCxHTML = require('../models/mastertable');
-const { S3Client, GetObjectCommand } = require('@aws-sdk/client-s3');
+const { S3Client, GetObjectCommand, PutObjectCommand } = require('@aws-sdk/client-s3');
 const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
@@ -12,6 +12,57 @@ const s3 = new S3Client({
       secretAccessKey: process.env.SECRETACCESSKEY,
     },
   });
+
+
+  const deleteFilesInFolder = () => {
+    try {
+
+      const folderPath = `${__dirname}/TempFiles/media/`;
+      const DocFilePath = `${__dirname}${process.env.DOCX}`;
+      const htmlOutputPath = `${__dirname}${process.env.HTML}`;
+      const outputFilename = "aws.html";
+      const outputPath = path.join(htmlOutputPath, outputFilename);
+
+      // Read the contents of the folder
+      fs.readdir(folderPath, (err, files) => {
+        if (err) {
+          console.error('Error reading folder:', err);
+          return;
+        }
+  
+        // Iterate over the files and delete each one
+        files.forEach((file) => {
+          const filePath = path.join(folderPath, file);
+          fs.unlink(filePath, (error) => {
+            if (error) {
+              console.error('Error deleting file:', error);
+            } else {
+              console.log('Deleted file:', filePath);
+            }
+          });
+        });
+
+        fs.unlink(DocFilePath, (error) => {
+          if (error) {
+            console.error('Error deleting file:', error);
+          } else {
+            console.log('Deleted file:', filePath);
+          }
+        });
+
+        fs.unlink(outputPath, (error) => {
+          if (error) {
+            console.error('Error deleting file:', error);
+          } else {
+            console.log('Deleted file:', filePath);
+          }
+        });
+      });
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  };
+  
 
 const downloadDocxFromS3 = async (filePath, bucketName, key) => {
     try {
@@ -80,7 +131,71 @@ const downloadDocxFromS3 = async (filePath, bucketName, key) => {
   };
   
   
+  const saveImagesToS3= async(fileName, bucketName)=>{
+    try {
+      const folderPath = `${__dirname}/TempFiles/media/`;
+      const htmlFilePath = `${__dirname}/TempFiles/aws.html`;
+
+     
+      const files = fs.readdirSync(folderPath);
+      const fileNameWithoutExtension = path.basename(fileName, '.docx');
+
+      const uploadedFiles= [];
   
+      for (const file of files) {
+        const filePath = `${folderPath}/${file}`;
+        const fileStream = fs.createReadStream(filePath);
+  
+        const uploadParams = {
+          Bucket: `${bucketName}`,
+          Key: `master-documents/${fileNameWithoutExtension}/${file}`,
+          Body: fileStream,
+        };
+  
+        const uploadCommand = new PutObjectCommand(uploadParams);
+        const uploaded= await s3.send(uploadCommand);
+
+        const searchText= `${file}"`
+
+       
+
+        await replaceTextInHTMLFile(htmlFilePath, searchText, `${file}" data-imageId="master-documents/${fileNameWithoutExtension}/${file}"`)
+        // const htmlData = fs.readFileSync(`${__dirname}${process.env.HTML}`, "utf-8");
+        //     resolve({
+        //       htmlContent: htmlData,
+        //     });
+  
+        uploadedFiles.push({ key: `master-documents/${fileNameWithoutExtension}/${file}`, bucket: bucketName });
+      };
+      return uploadedFiles ;      
+    } catch (error) {
+      console.error(error)
+      console.log('Error with Images:',error)
+      throw error;
+      
+    }
+  }
+  
+
+  const replaceTextInHTMLFile = (filePath, searchText, replacementText) => {
+  try {
+    const indexOfC = searchText.indexOf('C');
+    const updatedText = searchText.slice(0, indexOfC) + searchText.slice(indexOfC).replace('/', '');
+
+    // Read the file content
+    let data = fs.readFileSync(filePath, 'utf8');
+
+    // Replace occurrences of the search text with the replacement text
+    const updatedContent = data.replace(new RegExp(updatedText, 'g'), replacementText);
+
+    // Write the updated content back to the file
+    fs.writeFileSync(filePath, updatedContent, 'utf8');
+
+    console.log('Text replaced successfully.');
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
   
   const docxToHtml = async (req, res) => {
     try {
@@ -90,15 +205,26 @@ const downloadDocxFromS3 = async (filePath, bucketName, key) => {
         
         const downloadedFilePath = await downloadDocxFromS3(filePath, bucketName, key);
         const convertedData = await convertDocxToHtml(downloadedFilePath, htmlOutputPath, originalName);
+        const uploadedImages = await saveImagesToS3(key, bucketName);
         
         console.log("Conversion from DOCX to HTML successful!");
 
+        const outputFilename = "aws.html";
+        const outputPath = path.join(htmlOutputPath, outputFilename);
+
+        const htmlData = fs.readFileSync(`${outputPath}`, "utf-8");
+
+        await deleteFilesInFolder();
+
+
         return res.status(200).json({
           message: "Docx is downloaded from S3 bucket and converted to HTML.",
-          html: convertedData["htmlContent"],
+          html: htmlData,
+          media:uploadedImages
         });
         
     } catch (err) {
+      console.error(err)
         res.status(500).json({
         message: err.message,
       });
