@@ -17,7 +17,7 @@ const s3 = new S3Client({
   const deleteFilesInFolder = () => {
     try {
 
-      const folderPath = `${__dirname}/TempFiles/media/`;
+      const folderPath = `${__dirname}/TempFiles/media`;
       const DocFilePath = `${__dirname}${process.env.DOCX}`;
       const htmlOutputPath = `${__dirname}${process.env.HTML}`;
       const outputFilename = "aws.html";
@@ -33,11 +33,12 @@ const s3 = new S3Client({
         // Iterate over the files and delete each one
         files.forEach((file) => {
           const filePath = path.join(folderPath, file);
-          fs.unlink(filePath, (error) => {
+          fs.unlink(filePath, (error) => {            
             if (error) {
+              console.log("filePath2")
               console.error('Error deleting file:', error);
             } else {
-              console.log('Deleted file:', filePath);
+              console.log('Deleted file');
             }
           });
         });
@@ -46,7 +47,7 @@ const s3 = new S3Client({
           if (error) {
             console.error('Error deleting file:', error);
           } else {
-            console.log('Deleted file:', filePath);
+            console.log('Deleted file');
           }
         });
 
@@ -54,7 +55,7 @@ const s3 = new S3Client({
           if (error) {
             console.error('Error deleting file:', error);
           } else {
-            console.log('Deleted file:', filePath);
+            console.log('Deleted file');
           }
         });
       });
@@ -98,6 +99,7 @@ const downloadDocxFromS3 = async (filePath, bucketName, key) => {
     return new Promise(async (resolve, reject) => {
       const outputFilename = "aws.html";
       const outputPath = path.join(htmlFilePath, outputFilename);
+      console.log(htmlFilePath,"htmlFilePath")
       const command = `pandoc -s "${filePath}" -t html -o "${outputPath}" --metadata title="." --extract-media=${htmlFilePath}`;
   
       try {
@@ -133,7 +135,7 @@ const downloadDocxFromS3 = async (filePath, bucketName, key) => {
   
   const saveImagesToS3= async(fileName, bucketName)=>{
     try {
-      const folderPath = `${__dirname}/TempFiles/media/`;
+      const folderPath = `${__dirname}/TempFiles/media`;
       const htmlFilePath = `${__dirname}/TempFiles/aws.html`;
 
      
@@ -160,11 +162,6 @@ const downloadDocxFromS3 = async (filePath, bucketName, key) => {
        
 
         await replaceTextInHTMLFile(htmlFilePath, searchText, `${file}" data-imageId="master-documents/${fileNameWithoutExtension}/${file}"`)
-        // const htmlData = fs.readFileSync(`${__dirname}${process.env.HTML}`, "utf-8");
-        //     resolve({
-        //       htmlContent: htmlData,
-        //     });
-  
         uploadedFiles.push({ key: `master-documents/${fileNameWithoutExtension}/${file}`, bucket: bucketName });
       };
       return uploadedFiles ;      
@@ -179,14 +176,11 @@ const downloadDocxFromS3 = async (filePath, bucketName, key) => {
 
   const replaceTextInHTMLFile = (filePath, searchText, replacementText) => {
   try {
-    const indexOfC = searchText.indexOf('C');
-    const updatedText = searchText.slice(0, indexOfC) + searchText.slice(indexOfC).replace('/', '');
-
     // Read the file content
     let data = fs.readFileSync(filePath, 'utf8');
 
     // Replace occurrences of the search text with the replacement text
-    const updatedContent = data.replace(new RegExp(updatedText, 'g'), replacementText);
+    const updatedContent = data.replace(new RegExp(searchText, 'g'), replacementText);
 
     // Write the updated content back to the file
     fs.writeFileSync(filePath, updatedContent, 'utf8');
@@ -215,8 +209,6 @@ const downloadDocxFromS3 = async (filePath, bucketName, key) => {
         const htmlData = fs.readFileSync(`${outputPath}`, "utf-8");
 
         await deleteFilesInFolder();
-
-
         return res.status(200).json({
           message: "Docx is downloaded from S3 bucket and converted to HTML.",
           html: htmlData,
