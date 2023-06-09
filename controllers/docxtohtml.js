@@ -35,7 +35,6 @@ const s3 = new S3Client({
           const filePath = path.join(folderPath, file);
           fs.unlink(filePath, (error) => {            
             if (error) {
-              console.log("filePath2")
               console.error('Error deleting file:', error);
             } else {
               console.log('Deleted file');
@@ -99,7 +98,6 @@ const downloadDocxFromS3 = async (filePath, bucketName, key) => {
     return new Promise(async (resolve, reject) => {
       const outputFilename = "aws.html";
       const outputPath = path.join(htmlFilePath, outputFilename);
-      console.log(htmlFilePath,"htmlFilePath")
       const command = `pandoc -s "${filePath}" -t html -o "${outputPath}" --metadata title="." --extract-media=${htmlFilePath}`;
   
       try {
