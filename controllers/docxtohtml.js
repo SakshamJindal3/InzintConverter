@@ -205,6 +205,7 @@ const downloadDocxFromS3 = async (filePath, bucketName, key) => {
         const outputPath = path.join(htmlOutputPath, outputFilename);
 
         const htmlData = fs.readFileSync(`${outputPath}`, "utf-8");
+        
 
         // await deleteFilesInFolder();
         return res.status(200).json({
