@@ -162,6 +162,8 @@ const downloadDocxFromS3 = async (filePath, bucketName, key) => {
         await replaceTextInHTMLFile(htmlFilePath, searchText, `${file}" data-imageId="master-documents/${fileNameWithoutExtension}/${file}"`)
         uploadedFiles.push({ key: `master-documents/${fileNameWithoutExtension}/${file}`, bucket: bucketName });
       };
+
+      console.log(uploadedFiles,"uploadedFiles")
       return uploadedFiles ;      
     } catch (error) {
       console.error(error)
@@ -208,6 +210,7 @@ const downloadDocxFromS3 = async (filePath, bucketName, key) => {
         
 
         // await deleteFilesInFolder();
+        console.log("done")
         return res.status(200).json({
           message: "Docx is downloaded from S3 bucket and converted to HTML.",
           html: htmlData,
