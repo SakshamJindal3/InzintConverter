@@ -66,6 +66,7 @@ const s3 = new S3Client({
 
 const downloadDocxFromS3 = async (filePath, bucketName, key) => {
     try {
+      console.log(bucketName,"bucketName")
       const command = new GetObjectCommand({
         Bucket: bucketName,
         Key: key,
