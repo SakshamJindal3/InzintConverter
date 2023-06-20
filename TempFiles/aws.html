@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>My Document Title</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">My Document Title</h1>
+</header>
+<p>Confidentiality agreement</p>
+<ol type="1">
+<li><p>Party A<br />
+<br />
+and</p></li>
+<li><p>Party B</p></li>
+</ol>
+<p>Contents</p>
+<p><a href="#_c1a813a2-9832-4c61-88de-6b1d8f4c0f5b">1 Definitions and
+interpretation <span>1</span></a></p>
+<p><a href="#_Toc256000001">2 Provision and use of confidential
+information <span>5</span></a></p>
+<p><a href="#_7e9db560-596b-44d4-a330-62c770ed2a3a">3 Authorised
+disclosures <span>6</span></a></p>
+<p><a href="#_1565619455-46374125">4 Ownership and intellectual property
+rights <span>7</span></a></p>
+<p><a href="#_Toc256000004">5 Indemnity <span>7</span></a></p>
+<p><a href="#_Toc256000005">6 Equitable relief <span>7</span></a></p>
+<p><a href="#_Toc256000006">7 Termination <span>7</span></a></p>
+<p><a href="#_b7bc58c7-9ef7-4e5b-ba3e-2969e38baf88">8 Return and
+destruction of information <span>8</span></a></p>
+<p><a href="#_1565797021-53279425">9 Notices <span>8</span></a></p>
+<p><a href="#_Toc256000009">10 Entire agreement <span>9</span></a></p>
+<p><a href="#_b649bdf2-bcea-4d11-a0e3-c8feebff8fd8">11 Further assurance
+<span>10</span></a></p>
+<p><a href="#_Toc256000011">12 Variation <span>10</span></a></p>
+<p><a href="#_Toc256000012">13 Assignment and transfer of rights
+<span>10</span></a></p>
+<p><a href="#_Toc256000013">14 Cumulative rights <span>10</span></a></p>
+<p><a href="#_Toc256000014">15 Set off <span>10</span></a></p>
+<p><a href="#_Toc256000015">16 No partnership or agency
+<span>10</span></a></p>
+<p><a href="#_Toc256000016">17 Severance <span>10</span></a></p>
+<p><a href="#_723332b3-e39f-48a3-9cb5-b0664d972cd2">18 Waiver
+<span>10</span></a></p>
+<p><a href="#_99780125-c0f8-4bd4-ae2f-84a5afc41324">19 Compliance with
+law <span>11</span></a></p>
+<p><a href="#_Toc256000019">20 Counterparts <span>11</span></a></p>
+<p><a href="#_da1ff953-59a0-406a-8894-b069e1e0725a">21 Announcements
+<span>11</span></a></p>
+<p><a href="#_Toc256000021">22 Costs and expenses
+<span>11</span></a></p>
+<p><a href="#_Toc256000022">23 Language <span>11</span></a></p>
+<p><a href="#_425d0f1a-1a92-478e-9d1b-86d867374e22">24 Third party
+rights <span>11</span></a></p>
+<p><a href="#_Toc256000024">25 Governing law <span>12</span></a></p>
+<p><a href="#_Toc256000025">26 Jurisdiction <span>12</span></a></p>
+<p><a href="#_Toc256000026">Schedule 1 Confidential information
+<span>13</span></a></p>
+<p><a href="#_Toc256000027">Schedule 2 Authorised persons
+<span>14</span></a></p>
+<p><strong><mark>CONFIDENTIALITY AGREEMENT</mark></strong></p>
+<p>This Agreement is made on [<em><mark>date</mark>]</em></p>
+<p>Parties</p>
+<ol type="1">
+<li><p><mark>[PARTY A]</mark> a company incorporated in
+[<mark>country</mark>] under number [<mark>registered number</mark>]
+whose registered office is at [<mark>address</mark>] (<strong>Party
+A</strong>);</p></li>
+<li><p><mark>[PARTY B</mark>] a company incorporated in
+[<mark>country</mark>] under number [<mark>registered number</mark>]
+whose registered office is at [<mark>address</mark>] (<strong>Party
+B</strong>); </p></li>
+</ol>
+<p>(each of <strong>Party A</strong> and <strong>Party b</strong> being
+a <strong>party</strong> and together they are the
+<strong>parties</strong>)</p>
+<p>Background</p>
+<ol type="A">
+<li><p>Party A is [<em><mark>business description A</mark>]</em> and
+Party B is [<em><mark>business description B</mark>]</em>.</p></li>
+<li><p>The parties wish to disclose Confidential Information to each
+other for use strictly for the Purpose.</p></li>
+<li><p>The parties wish to regulate the use and preserve the
+confidentiality of the Confidential Information.<span
+id="_c1a813a2-9832-4c61-88de-6b1d8f4c0f5b"
+class="anchor"></span></p></li>
+</ol>
+<ol type="1">
+<li><p>Definitions and interpretation</p>
+<ol type="1">
+<li><p>Definitions</p></li>
+</ol></li>
+</ol>
+<p>In this Agreement:</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Affiliate</strong></td>
+<td><ol>
+<li><div class="Definition">
+<p>means any entity that directly or indirectly Controls, is Controlled
+by, or is under common Control with, another entity;</p>
+</div></li>
+</ol></td>
+</tr>
+<tr class="even">
+<td><strong>Authorised Persons</strong></td>
+<td><ol start="2">
+<li><div class="Definition">
+<p>means, in relation to a Recipient, any of the officers, directors,
+members, partners, employees, consultants, agents, representatives or
+professional advisers of that Recipient and of its Affiliates and any
+other persons whom a Discloser has previously designated in writing as
+authorised OR the individuals listed in Schedule 2;</p>
+</div></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td><strong>Business Day</strong></td>
+<td><ol start="3">
+<li><div class="Definition">
+<p>means a day other than a Saturday, Sunday or public holiday in
+England and Wales;</p>
+</div></li>
+</ol></td>
+</tr>
+<tr class="even">
+<td><strong>Confidential Information</strong></td>
+<td><ol start="4">
+<li><div class="Definition">
+<p>means all information of a confidential nature (in whatever form)
+which relates to the Purpose and is disclosed directly or indirectly by
+a Discloser, its Representatives or its Affiliates to a Recipient, a
+Recipient’s Authorised Persons or a Recipient’s Affiliates
+including:</p>
+</div>
+<ol type="a">
+<li><p>any know-how, trade secrets, financial, commercial, technical,
+tactical or strategic information of any kind;</p></li>
+<li><p>all information produced, developed or derived from information
+disclosed pursuant to this Agreement;</p></li>
+<li><p>all information agreed to be, or marked as,
+confidential;</p></li>
+<li><p>the information specified in Schedule 1;</p></li>
+<li><p>any information a Recipient, its Affiliates or its OR their
+Authorised Persons knows, or could reasonably be expected to know, is
+confidential; and</p></li>
+<li><p>the terms and existence of this Agreement.</p></li>
+</ol>
+<div class="Definition">
+<p>but excluding any information which:</p>
+</div>
+<ol type="a">
+<li><p>is, or was already known or available to a Recipient, otherwise
+than pursuant to or through breach of any confidentiality obligation
+owed to a Discloser;</p></li>
+<li><p>is, or becomes, in the public domain other than through any
+breach of this Agreement (save that any publicly available information
+shall be classified as Confidential Information where it is compiled in
+a form that is not in the public domain);</p></li>
+<li><p>is disclosed to a Recipient without any obligation of confidence
+to a Discloser by a third party who is not itself under or in breach of
+any obligation of confidentiality;</p></li>
+<li><p>is developed by or on behalf of a Recipient in circumstances
+where the developing party has not had direct or indirect access to the
+information disclosed, provided that a Recipient provides satisfactory
+evidence of the same to a Discloser;</p></li>
+<li><p>a Discloser agrees in writing does not constitute Confidential
+Information.</p></li>
+</ol></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td><strong>Control</strong></td>
+<td><ol start="6">
+<li><div class="Definition">
+<p>means the beneficial ownership of more than 50% of the issued share
+capital of a company or the legal power to direct or cause the direction
+of the management of the company OR has the meaning given in section
+1124 of the Corporation Tax Act 2010 and <strong>Controls</strong>,
+<strong>Controlled</strong> and <strong>under common Control</strong>
+shall be interpreted accordingly;</p>
+</div></li>
+</ol></td>
+</tr>
+<tr class="even">
+<td><strong>Discloser</strong></td>
+<td><ol start="7">
+<li><div class="Definition">
+<p>means a party who discloses its Confidential Information to a
+Recipient and to a Recipient’s Authorised Persons;</p>
+</div></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td><strong>Intellectual Property Rights</strong></td>
+<td><ol start="8">
+<li><div class="Definition">
+<p>means copyright, rights related to copyright such as moral rights and
+performers rights, patents, rights in inventions, rights in Confidential
+Information, know-how, trade secrets, trade marks, geographical
+indications, service marks, trade names, design rights, rights in
+get-up, database rights, databases, data exclusivity rights, approvals,
+utility models, domain names, business names, rights in computer
+software, mask works, topography rights, the right to sue for
+infringement, unfair competition and passing off, and all similar rights
+of whatever nature wherever in the world arising and, in each case:</p>
+</div>
+<ol type="a">
+<li><p>whether registered or not,</p></li>
+<li><p>including any applications to protect or register such
+rights,</p></li>
+<li><p>including all renewals and extensions of such rights or
+applications,</p></li>
+<li><p>whether vested, contingent or future, and</p></li>
+<li><p>wherever existing;</p></li>
+</ol>
+<div class="Definition">
+<p>including but not limited to those rights specified in Schedule
+<em>insert number and name of schedule</em>.</p>
+</div></li>
+</ol></td>
+</tr>
+<tr class="even">
+<td><strong>Losses</strong></td>
+<td><ol start="10">
+<li><div class="Definition">
+<p>means all damages, liabilities, demands, costs, expenses, claims,
+actions and proceedings (including all consequential, direct, indirect,
+special or incidental loss or punitive damages or loss, legal and other
+professional fees, cost and expenses, fines, penalties, interest and
+loss of profit or any other form of economic loss (including loss of
+reputation));</p>
+</div></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td><strong>Purpose</strong></td>
+<td><ol start="11">
+<li><div class="Definition">
+<p>means the evaluation, negotiation and completion of the <em>state the
+purpose or project</em> in a proper manner, including the carrying out
+of legal and financial due diligence, assessment of risks and the
+negotiation of a legally binding agreement to implement <em>state the
+purpose or project</em>;</p>
+</div></li>
+</ol></td>
+</tr>
+<tr class="even">
+<td><strong>Recipient</strong></td>
+<td><ol start="12">
+<li><div class="Definition">
+<p>means a party who receives (and whose Authorised Persons receive)
+Confidential Information belonging to a Discloser; and</p>
+</div></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td><strong>Representatives</strong></td>
+<td><ol start="13">
+<li><div class="Definition">
+<p>means a Discloser’s and its Affiliates’ employees, officers,
+advisers, agents or other representatives.</p>
+</div></li>
+</ol></td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li><p>Interpretation</p></li>
+</ol>
+<p>In this Agreement:</p>
+<ol type="1">
+<li><p>a reference to this Agreement includes its schedules, appendices
+and annexes (if any);</p></li>
+<li><p>a reference to a ‘party’ includes that party’s personal
+representatives, successors and permitted assigns;</p></li>
+<li><p>a reference to a ‘person’ includes a natural person, corporate or
+unincorporated body (in each case whether or not having separate legal
+personality) and that person’s personal representatives, successors and
+permitted assigns;</p></li>
+<li><p>a reference to a ‘company’ includes any company, corporation or
+other body corporate, wherever and however incorporated or
+established;</p></li>
+<li><p>a reference to a gender includes each other gender;</p></li>
+<li><p>words in the singular include the plural and vice versa;</p></li>
+<li><p>any words that follow ‘include’, ‘includes’, ‘including’, ‘in
+particular’ or any similar words and expressions shall be construed as
+illustrative only and shall not limit the sense of any word, phrase,
+term, definition or description preceding those words;</p></li>
+<li><p>a reference to ‘writing’ or ‘written’ includes any method of
+reproducing words in a legible and non-transitory form including OR
+excluding email.</p></li>
+</ol>
+<ol start="2" type="1">
+<li><p><span id="_Toc256000001" class="anchor"></span>Provision and use
+of confidential information</p>
+<ol type="1">
+<li><p>Any party may disclose Confidential Information to another party
+for it to be used strictly for the Purpose;</p></li>
+<li><p>In consideration of any disclosures of Confidential Information
+pursuant to clause 2.1 and the payment by each party of £1 (one pound)
+to each of the other parties, (the receipt of which is acknowledged by
+each of the parties), and subject to clause 3, each Recipient undertakes
+to the Discloser that it shall, and shall procure that its Authorised
+Persons shall:</p>
+<ol type="1">
+<li><p>keep the Confidential Information confidential at all
+times;</p></li>
+<li><p>not disclose (whether directly or indirectly) the Confidential
+Information or allow it to be disclosed in whole or in part to any third
+party without the Discloser’s prior written consent;</p></li>
+<li><p>take and maintain proper and reasonable measures to ensure the
+confidentiality of the Confidential Information, including any security
+measures requested in writing from time to time by the Discloser of the
+Confidential Information;</p></li>
+<li><p>not use, seek to derive benefit or commercial advantage from the
+Confidential Information in whole or in part other than strictly for the
+Purpose;</p></li>
+<li><p>not copy or reproduce in any form the Confidential Information
+except to the extent strictly necessary for the Purpose (and the
+Recipient acknowledges that any such copies or reproductions are the
+property of the Discloser);</p></li>
+<li><p>keep the Confidential Information at the Recipient’s premises at
+<em>insert address</em> at all times and not remove or permit its
+removal from there;</p></li>
+<li><p>keep a list of any Confidential Information which is disclosed in
+a tangible form, along with any copies made of any Confidential
+Information;</p></li>
+<li><p>permit the Discloser to access its premises on reasonable notice
+in order to audit a Recipient’s compliance with this Agreement where
+there are reasonable grounds to suspect a breach or where a Discloser is
+required by law or any regulatory body to retrieve any Confidential
+Information which has been disclosed.</p></li>
+</ol></li>
+<li><p>At a Discloser’s discretion, an Affiliate of that Discloser may
+enforce the Discloser’s rights under this Agreement in respect of any
+Confidential Information which belongs to that Affiliate.</p></li>
+<li><p>The Discloser and its Affiliates make no representation and give
+no warranty concerning the accuracy, efficacy, or completeness of the
+Confidential Information.</p></li>
+<li><p>The parties agree that nothing contained in this Agreement and no
+Confidential Information supplied by a Discloser to a Recipient shall
+oblige any party to enter into any further agreement or negotiation with
+the other or to refrain from entering into an agreement with any third
+party.</p></li>
+<li><p>A Recipient’s obligations under this Agreement shall continue in
+full force and effect during the term of the Agreement and for a period
+of <em><del>specify eg ten</del></em> two years from the date of
+termination of this Agreement OR until such time as the Confidential
+Information shall cease to be confidential in nature.<span
+id="_7e9db560-596b-44d4-a330-62c770ed2a3a"
+class="anchor"></span></p></li>
+</ol></li>
+<li><p>Authorised disclosures</p>
+<ol type="1">
+<li><p>A Recipient may disclose Confidential Information to those of its
+Authorised Persons who need to know it for the Purpose, provided that
+the Recipient:</p>
+<ol type="1">
+<li><p>informs the Authorised Persons beforehand of the duties of
+confidence under this Agreement;</p></li>
+<li><p>uses reasonable endeavours to ensure that OR ensures that the
+Authorised Persons undertake to comply with clause 2 of this Agreement
+as if they were a party.</p></li>
+<li><p>agrees that it will be liable for any breach, actions or
+omissions of its Authorised Persons;</p></li>
+<li><p>if required by a Discloser, procures that any Authorised Person
+enters into a confidentiality agreement directly with a Discloser (and
+any of the Discloser’s Affiliates) in similar terms to those set out in
+this Agreement;</p></li>
+<li><p>keeps a written account of each disclosure;</p></li>
+<li><p>advises a Discloser immediately upon becoming aware of any
+potential or actual breach by an Authorised Person; and </p></li>
+<li><p>upon any request by a Discloser, provides satisfactory evidence
+of compliance with this clause 3.1.</p></li>
+</ol></li>
+<li><p>A Recipient may disclose any Confidential Information which:</p>
+<ol type="1">
+<li><p>it is required to disclose by law, any court, any governmental,
+regulatory or supervisory authority (including any securities exchange)
+or any other authority of competent jurisdiction; or </p></li>
+<li><p>a Discloser expressly agrees in writing may be disclosed,
+provided that such permission is provided in advance of any disclosure
+by a Recipient.</p></li>
+</ol></li>
+<li><p>In the event that a Recipient becomes legally compelled to
+disclose any of the Confidential Information pursuant to clause 3.2.1
+then to the extent permitted by law: </p>
+<ol type="1">
+<li><p>a Recipient shall give the Discloser prompt written notice of the
+fact so that the Discloser may take such steps to prevent such
+disclosure as it deems appropriate; and</p></li>
+<li><p>the Recipient shall co-operate with the Discloser in such manner
+as the Discloser may reasonably require for this purpose, provided that
+the Discloser reimburses the Recipient for its reasonable costs and
+expenses incurred in such co-operation.<span id="_1565619455-46374125"
+class="anchor"></span></p>
+<p>3A. Ownership and intellectual property rights</p>
+<p>3a.1 Except for a Recipient’s right to use the Confidential
+Information in accordance with this Agreement, a Recipient shall not
+acquire, in any way, any title, rights of ownership, or interest in any
+Intellectual Property Rights of whatever nature which may exist or come
+into existence in or relate to the Confidential Information and no
+Intellectual Property Rights of any party are transferred or licensed as
+a result of this Agreement.</p>
+<p>3A.2 Each Recipient acknowledges and understands that the
+Confidential Information contains confidential and proprietary
+information and it shall not conceal, modify, remove, destroy or alter
+in any way any proprietary markings of a Discloser on or in the
+Confidential Information.</p></li>
+</ol></li>
+</ol></li>
+<li><p>NOT USED</p></li>
+<li><p><span id="_Toc256000005" class="anchor"></span>Equitable
+relief</p></li>
+</ol>
+<p>Each Recipient recognises that any breach or threatened breach of
+this Agreement may cause a Discloser (or its Affiliates) irreparable
+harm for which damages may not be an adequate remedy. Accordingly, in
+addition to any other remedies and damages each Recipient agrees that a
+Discloser is OR and its Affiliates are entitled to the remedies of
+specific performance, injunction and other equitable relief without
+proof of special damages.</p>
+<ol start="6" type="1">
+<li><p><span id="_Toc256000006" class="anchor"></span>Termination</p>
+<ol type="1">
+<li><p>This Agreement shall expire or terminate on the earliest of: </p>
+<ol type="1">
+<li><p>the date on which the parties have agreed that the Purpose has
+been fulfilled;</p></li>
+<li><p>the parties’ entry into a contract providing for the completion
+of the Purpose;</p></li>
+<li><p>the date specified in a written notice of termination served by
+one party on the other parties, being a date not less than <em>one
+month</em> following the date of service of such a notice;</p></li>
+<li><p>immediately upon service of a written notice served by one party
+on the other parties following a material breach of this Agreement by
+any of the other parties; and</p></li>
+<li><p>immediately upon service of a written notice of termination
+served by a Discloser on a Recipient and a written copy of such notice
+on the other parties if a Recipient contests the secret or substantial
+nature of the Confidential Information.<span
+id="_b7bc58c7-9ef7-4e5b-ba3e-2969e38baf88"
+class="anchor"></span></p></li>
+</ol></li>
+</ol></li>
+<li><p>Return and destruction of information</p>
+<ol type="1">
+<li><p>Upon the expiry or termination of this Agreement (howsoever
+caused) or upon receipt by a Recipient of an earlier written demand from
+a Discloser, and without prejudice to clause 2.6 of this Agreement:</p>
+<ol type="1">
+<li><p>a Recipient must return or procure the return to the Discloser
+or, as the Discloser may require, destroy or procure the destruction of
+any and all materials containing the Confidential Information together
+with all copies;</p></li>
+<li><p>if a Discloser requires, the Recipient must provide the Discloser
+with a certificate or such other evidence as the Discloser may
+reasonably require duly signed or executed by an officer of the
+Recipient confirming that the Recipient has complied with all of its
+obligations under this Agreement including about return, destruction and
+deletion of Confidential Information and media;</p></li>
+<li><p>the Recipient must delete or procure the deletion of all
+electronic copies of Confidential Information; and</p></li>
+<li><p>the Recipient must make, and procure that the Authorised Persons
+shall make, no further use of the Confidential Information.<span
+id="_1565797021-53279425" class="anchor"></span></p></li>
+</ol></li>
+</ol></li>
+<li><p>Notices</p>
+<ol type="1">
+<li><p>Any notice or other communication given by a party under this
+Agreement shall:</p>
+<ol type="1">
+<li><p>be in writing and in English;</p></li>
+<li><p>be signed by, or on behalf of, the party giving it (except for
+notices sent by email); and</p></li>
+<li><p>be sent to the relevant party at the address set out in clause
+9.3.</p></li>
+</ol></li>
+<li><p>Notices may be given, and are deemed received:</p>
+<ol type="1">
+<li><p>by hand: on receipt of a signature at the time of
+delivery;</p></li>
+<li><p><del>by <em>Royal Mail Recorded Signed For</em> post: at 9.00 am
+OR on the <em>second</em> Business Day after posting</del> NOT
+USED;</p></li>
+<li><p><del>by Royal Mail International Tracked &amp; Signed OR Royal
+Mail International Signed post: at 9.00 am OR on the <em>fourth</em>
+Business Day after posting</del> NOT USED;</p></li>
+<li><p>by email provided confirmation is sent by first class post: on
+receipt of a delivery OR read receipt email from the correct
+address.</p></li>
+</ol></li>
+<li><p>Notices and other communications shall be sent to:</p>
+<ol type="1">
+<li><p><em>insert name of Party A</em> for the attention of <em>insert
+name and/or position</em> at:</p></li>
+</ol></li>
+</ol></li>
+</ol>
+<p><em>insert address</em></p>
+<p><em>insert email address</em>; and</p>
+<p>copied to <em>insert name</em> at <em>insert address</em>; and</p>
+<ol start="2" type="1">
+<li><p><em>insert name of Party B</em> for the attention of <em>insert
+name and/or position</em> at:</p></li>
+</ol>
+<p><em>insert address</em></p>
+<p><em>insert email address</em>; and</p>
+<p>copied to <em>insert name</em> at <em>insert address</em>.</p>
+<p>8.3A Any change to the contact details of a party as set out in
+clause 9.3 shall be notified to the other parties in accordance with
+clause 9.1 and shall be effective:</p>
+<p>8.3A.1 on the date specified in the notice as being the date of such
+change; or</p>
+<p>8.3A.2 if no date is so specified, <em>insert figure</em> Business
+Days after the notice is deemed to be received.</p>
+<ol start="4" type="1">
+<li><p>All references to time are to the local time at the place of
+deemed receipt.</p></li>
+<li><p>This clause does not apply to notices given in legal proceedings
+or arbitration.</p></li>
+<li><p>A notice given under this Agreement is not validly served if sent
+by email.</p></li>
+</ol>
+<ol start="9" type="1">
+<li><p><span id="_Toc256000009" class="anchor"></span>Entire
+agreement</p>
+<ol type="1">
+<li><p>Each of the parties agrees that this Agreement and any documents
+entered into pursuant to it constitutes the entire agreement between
+them and supersedes all previous agreements, understandings and
+arrangements between them, whether in writing or oral in respect of its
+subject matter.</p></li>
+<li><p>Each of the parties acknowledges that it has not entered into
+this Agreement or any documents entered into pursuant to it <del>OR
+<em>insert names of specific documents</em> in reliance on, and shall
+have no remedies in respect of, any representation or warranty that is
+not expressly set out in this Agreement or any documents entered into
+pursuant to it OR <em>insert names of specified documents</em></del>.
+Each of the parties shall not have any claim for innocent or negligent
+misrepresentation on the basis of any statement in this
+Agreement.</p></li>
+<li><p>Nothing in this Agreement purports to limit or exclude any
+liability for fraud.<span id="_b649bdf2-bcea-4d11-a0e3-c8feebff8fd8"
+class="anchor"></span></p></li>
+</ol></li>
+<li><p>Further assurance</p></li>
+</ol>
+<p>Each party shall at the request of any of the others, and at the cost
+of the requesting party, do all acts and execute all documents which are
+necessary to give full effect to this Agreement.</p>
+<ol start="11" type="1">
+<li><p><span id="_Toc256000011" class="anchor"></span>Variation</p></li>
+</ol>
+<p>No variation of this Agreement shall be valid or effective unless it
+is in writing, refers to this Agreement and is duly signed or executed
+by, or on behalf of, each party.</p>
+<ol start="12" type="1">
+<li><p><span id="_Toc256000012" class="anchor"></span>Assignment and
+transfer of rights</p></li>
+</ol>
+<p>Each party not shall not (without the others’ prior written consent)
+assign, subcontract or encumber any right or obligation under this
+Agreement, in whole or in part.</p>
+<ol start="13" type="1">
+<li><p><span id="_Toc256000013" class="anchor"></span>Cumulative
+rights</p></li>
+</ol>
+<p>The rights and remedies provided for in this Agreement are cumulative
+with, and not exclusive of, any rights or remedies otherwise provided by
+law or in equity. No exercise by a party of any one right or remedy
+shall operate so as to hinder or prevent the exercise by it of any other
+right or remedy.</p>
+<ol start="14" type="1">
+<li><p><span id="_Toc256000014" class="anchor"></span>Set off</p></li>
+</ol>
+<p>Each party shall pay all sums that it owes to the other parties under
+this Agreement without any set-off, counterclaim, deduction or
+withholding of any kind, save as may be required by law.</p>
+<ol start="15" type="1">
+<li><p><span id="_Toc256000015" class="anchor"></span>No partnership or
+agency</p></li>
+</ol>
+<p>The parties are independent persons and are not partners, principal
+and agent or employer and employee, and this Agreement does not
+establish any joint venture between them, other than the contractual
+relationship expressly provided for in it. Each party shall not have,
+nor shall represent that it has, any authority to make any commitment on
+another party’s behalf.</p>
+<ol start="16" type="1">
+<li><p><span id="_Toc256000016" class="anchor"></span>Severance</p>
+<ol type="1">
+<li><p>If any provision of this Agreement (or part of any provision) is
+or becomes illegal, invalid or unenforceable, the legality, validity and
+enforceability of any other provision of this Agreement shall not be
+affected.</p></li>
+<li><p>If any provision of this Agreement (or part of any provision) is
+or becomes illegal, invalid or unenforceable but would be legal, valid
+and enforceable if some part of it was deleted or modified, the
+provision or part-provision in question shall apply with such deletions
+or modifications as may be necessary to make the provision legal, valid
+and enforceable. In the event of such deletion or modification, the
+parties shall negotiate in good faith in order to agree the terms of a
+mutually acceptable alternative provision.<span
+id="_723332b3-e39f-48a3-9cb5-b0664d972cd2"
+class="anchor"></span></p></li>
+</ol></li>
+<li><p>Waiver</p>
+<ol type="1">
+<li><p>No failure, delay or omission by any party in exercising any
+right, power or remedy provided by law or under this Agreement shall
+operate as a waiver of that right, power or remedy, nor shall it
+preclude or restrict any future exercise of that or any other right,
+power or remedy.</p></li>
+<li><p>No single or partial exercise of any right, power or remedy
+provided by law or under this Agreement shall prevent any future
+exercise of it or the exercise of any other right, power or
+remedy.</p></li>
+<li><p>A waiver of any term, provision, condition or breach of this
+Agreement shall only be effective if given in writing and signed by the
+waiving party, and then only in the instance and for the purpose for
+which it is given.<span id="_99780125-c0f8-4bd4-ae2f-84a5afc41324"
+class="anchor"></span></p></li>
+</ol></li>
+<li><p>Compliance with law</p></li>
+</ol>
+<p>Each party shall comply and shall (at its own expense unless
+expressly agreed otherwise) ensure that in the performance of its duties
+under this Agreement, its Representatives and Authorised Persons will
+comply with all applicable laws and regulations, provided that neither
+party shall be liable for any breach of this clause 19 to the extent
+that such breach is directly caused or contributed to by any breach of
+this Agreement by the other party (or their Representatives or
+Authorised Persons).</p>
+<ol start="19" type="1">
+<li><p><span id="_Toc256000019" class="anchor"></span>Counterparts</p>
+<ol type="1">
+<li><p>This Agreement may be signed in any number of separate
+counterparts, each of which when signed and dated shall be an original,
+and such counterparts taken together shall constitute one and the same
+agreement.</p></li>
+<li><p>Each party may evidence their signature of this Agreement by
+transmitting <em>by fax or by email</em> a signed signature page of this
+Agreement in PDF format together with the final version of this
+Agreement in PDF or Word format, which shall constitute an original
+signed counterpart of this Agreement. Each party adopting this method of
+signing shall, following circulation <em>by fax or by email</em>,
+provide the original, hard copy signed signature page to the other
+parties as soon as reasonably practicable.<span
+id="_da1ff953-59a0-406a-8894-b069e1e0725a"
+class="anchor"></span></p></li>
+</ol></li>
+<li><p>Announcements</p></li>
+</ol>
+<p>Neither party will make, permit, procure or solicit or assist any
+other person to make or procure any announcement or disclosure
+concerning its prospective interest in the Purpose or any project
+related to the Purpose.</p>
+<ol start="21" type="1">
+<li><p><span id="_Toc256000021" class="anchor"></span>Costs and
+expenses</p></li>
+</ol>
+<p>Each party shall pay its own costs and expenses incurred in
+connection with the negotiation, preparation, signature and performance
+of this Agreement (and any documents referred to in it).</p>
+<ol start="22" type="1">
+<li><p><span id="_Toc256000022" class="anchor"></span>Language</p>
+<ol type="1">
+<li><p>The language of this Agreement is English. All documents,
+notices, waivers, variations and other written communications relating
+to this Agreement shall be in English.</p></li>
+<li><p>If this Agreement and any document relating to it is translated,
+the English version shall prevail.<span
+id="_425d0f1a-1a92-478e-9d1b-86d867374e22"
+class="anchor"></span></p></li>
+</ol></li>
+<li><p>Third party rights</p></li>
+</ol>
+<p>Except as expressly provided for in this Agreement, a person who is
+not a party to this Agreement shall not have any rights under the
+Contracts (Rights of Third Parties) Act 1999 to enforce any of the
+provisions of this Agreement. The parties shall not, however, be
+required to notify or obtain the consent of any third party in order to
+rescind or vary this Agreement.</p>
+<ol start="24" type="1">
+<li><p><span id="_Toc256000024" class="anchor"></span>Governing
+law</p></li>
+</ol>
+<p>This Agreement and any dispute or claim arising out of, or in
+connection with it, its subject matter or its formation (including
+non-contractual disputes or claims) shall be governed by, and construed
+in accordance with, the laws of [England and Wales].</p>
+<ol start="25" type="1">
+<li><p><span id="_Toc256000025"
+class="anchor"></span>Jurisdiction</p></li>
+</ol>
+<p>The parties irrevocably agree that the courts of England and Wales
+shall have [<mark>exclusive</mark>] jurisdiction to settle any dispute
+or claim arising out of, or in connection with, this Agreement, its
+subject matter or its formation (including non-contractual disputes or
+claims).</p>
+<p>Agreed by the parties on the date set out at the head of this
+Agreement</p>
+<table>
+<colgroup>
+<col style="width: 62%" />
+<col style="width: 37%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Signed by <em>insert full name of director/authorised
+signatory</em></td>
+<td>.................................</td>
+</tr>
+<tr class="even">
+<td>for and on behalf of</td>
+<td>Director OR Authorised signatory</td>
+</tr>
+<tr class="odd">
+<td><em>insert name of Party A</em></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>and</p>
+<table>
+<colgroup>
+<col style="width: 62%" />
+<col style="width: 37%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Signed by <em>insert full name of director/authorised
+signatory</em></td>
+<td>.................................</td>
+</tr>
+<tr class="even">
+<td>for and on behalf of</td>
+<td>Director OR Authorised signatory</td>
+</tr>
+<tr class="odd">
+<td><em>insert name of Party B</em></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li><p><span id="_Toc256000026" class="anchor"></span>Confidential
+information</p></li>
+</ol>
+<p><em>Insert details of Confidential Information to be disclosed by
+Parties A, B and C as appropriate</em>.</p>
+<ol start="2" type="1">
+<li><p><span id="_Toc256000027" class="anchor"></span>Authorised
+persons</p></li>
+</ol>
+<p><em>Insert details of named Authorised Persons here</em></p>
+</body>
+</html>

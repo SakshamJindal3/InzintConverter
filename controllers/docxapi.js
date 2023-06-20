@@ -1,4 +1,5 @@
 const AWS = require("aws-sdk");
+const tabStopFilter= require("./tab_stop_filter.lua");
 const { exec } = require("child_process");
 const path = require("path");
 const fs = require("fs");
@@ -7,7 +8,26 @@ require("dotenv").config();
 const connectDB = require("../config/db");
 // const { JSDOM } = require('jsdom');
 connectDB();
+// function replaceSpanWithParagraph(file) {
+//   console.log("inside replaceSpanWithParagraph");
+//   fs.readFile(file, "utf8", (err, data) => {
+//     if (err) {
+//       console.error("Error reading file:", err);
+//       return;
+//     }
+//     // console.log(data);
+//     const data1 = data.toString();
+//     const replacedData = data1.replace(/<span>/g, `<span>&nbsp;&nbsp;&nbsp;&ensp;&ensp;&ensp;&ensp;`);
 
+//     fs.writeFile(file, replacedData, "utf8", (err) => {
+//       if (err) {
+//         console.error("Error writing file:", err);
+//         return;
+//       }
+//       console.log(replacedData);
+//     });
+//   });
+// }
 const convert = async (req, res) => {
   try {
     // Create an S3 instance
@@ -35,8 +55,8 @@ const convert = async (req, res) => {
       return new Promise((resolve, reject) => {
         // const outputFilename = "aws.html";
         // const outputPath = path.join(htmlFilePath, outputFilename);
-        const command = `pandoc -s "${filePath}" -t html -o "${htmlFilePath}" --metadata title="My Document Title"`;
-
+        const command = `pandoc -s "${filePath}" -t html5 -o "${htmlFilePath}" --metadata=title:"My Document Title" --lua-filter=tab_stop_filter.lua --metadata tab_stop=5 --toc`;
+        // replaceSpanWithParagraph(htmlFilePath);
         exec(command, (error, stdout, stderr) => {
           if (error) {
             reject(error);
@@ -62,7 +82,7 @@ const convert = async (req, res) => {
         // const data = fs.readFileSync(htmlOutputPath, 'utf-8');
         const utf8Data = data.toString("utf-8");
         // const utf8Data = JSON.parse(jsonString);
-        console.log(utf8Data);
+        // console.log(utf8Data);
         // const utf8Data = JSON.parse(data.toString("utf-8"));
 
         const client = await MongoClient.connect(process.env.MONGO_URI, {
@@ -96,7 +116,7 @@ const convert = async (req, res) => {
     const utf = await saveHTMLToMongoDB(htmlOutputPath);
 
     return res.json({
-      data: utf,
+      // data: utf,
     });
   } catch (err) {
     res.json({
